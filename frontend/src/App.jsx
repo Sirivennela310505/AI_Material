@@ -127,7 +127,7 @@ export default function App() {
           )}
 
           {activeTab === 'posters' && (
-            <InteractivePosters />
+            <InteractivePosters selectedUnitId={selectedUnitId} />
           )}
 
           {activeTab === 'presentation' && (
