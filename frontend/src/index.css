@@ -1,0 +1,219 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+
+:root {
+  /* Dark theme backgrounds */
+  --bg-app: #0b1120;
+  --bg-sidebar: #0f1729;
+  --bg-card: #151f32;
+  --bg-card-subtle: #1a2640;
+  --bg-card-hover: #1f2d4a;
+
+  /* Text */
+  --text-dark: #e8ecf4;
+  --text-muted: #8b97b0;
+  --text-light: #a3b1c8;
+  --text-white: #ffffff;
+
+  /* Borders */
+  --border-color: #1e2d48;
+  --border-strong: #2a3d5e;
+
+  /* Primary teal accent */
+  --primary-teal: #14b8a6;
+  --primary-teal-dark: #0d9488;
+  --primary-teal-light: rgba(20,184,166,0.15);
+
+  /* Secondary indigo */
+  --primary-indigo: #6366f1;
+  --primary-indigo-light: rgba(99,102,241,0.15);
+  --primary-blue: #3b82f6;
+  --primary-blue-light: rgba(59,130,246,0.15);
+
+  /* Accents */
+  --accent-emerald: #10b981;
+  --accent-emerald-light: rgba(16,185,129,0.15);
+  --accent-amber: #f59e0b;
+  --accent-amber-light: rgba(245,158,11,0.15);
+  --accent-rose: #f43f5e;
+  --accent-rose-light: rgba(244,63,94,0.15);
+  --accent-purple: #a855f7;
+  --accent-purple-light: rgba(168,85,247,0.15);
+
+  /* Typography */
+  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Shadows (dark mode friendly) */
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.5);
+  --shadow-lg: 0 12px 28px rgba(0,0,0,0.6);
+  --shadow-glow-teal: 0 0 20px rgba(20,184,166,0.25);
+  --shadow-glow-indigo: 0 0 20px rgba(99,102,241,0.25);
+
+  /* Border radius */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+}
+
+/* ── Reset ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-app);
+  color: var(--text-dark);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── Glass Card ────────────────────────────────────────── */
+.edtech-card {
+  background: rgba(21,31,50,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.edtech-card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+
+.edtech-card-interactive {
+  cursor: pointer;
+}
+
+.edtech-card-interactive:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg), var(--shadow-glow-teal);
+  border-color: var(--primary-teal);
+}
+
+/* ── Buttons ───────────────────────────────────────────── */
+.btn-primary {
+  background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-dark) 100%);
+  color: var(--text-white);
+  border: none;
+  padding: 10px 22px;
+  border-radius: var(--radius-md);
+  font-weight: 700;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 2px 8px rgba(20,184,166,0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(20,184,166,0.4);
+  filter: brightness(1.1);
+}
+
+.btn-primary:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+  filter: none;
+}
+
+.btn-secondary {
+  background: var(--bg-card);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+  padding: 10px 20px;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.25s ease;
+}
+
+.btn-secondary:hover {
+  background: var(--bg-card-subtle);
+  border-color: var(--primary-teal);
+  color: var(--primary-teal);
+}
+
+/* ── Gradient text ─────────────────────────────────────── */
+.gradient-text-edtech {
+  background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-indigo) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Dark Scrollbars ───────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-app); }
+::-webkit-scrollbar-thumb { background: #2a3d5e; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--primary-teal-dark); }
+
+/* ── Animations ────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 8px rgba(20,184,166,0.2); }
+  50%      { box-shadow: 0 0 24px rgba(20,184,166,0.5); }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-6px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.35s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.animate-slide-up {
+  animation: slideUp 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+.animate-pulse-glow {
+  animation: pulse-glow 2.5s ease-in-out infinite;
+}
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ── Input overrides (dark) ────────────────────────────── */
+input, select, textarea {
+  background: var(--bg-card-subtle);
+  color: var(--text-dark);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-family: var(--font-sans);
+  font-size: 0.875rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+input:focus, select:focus, textarea:focus {
+  border-color: var(--primary-teal);
+  box-shadow: 0 0 0 3px rgba(20,184,166,0.15);
+}
+input::placeholder { color: var(--text-muted); }
