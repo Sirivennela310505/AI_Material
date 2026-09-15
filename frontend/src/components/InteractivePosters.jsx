@@ -1011,6 +1011,7 @@ ${currentPoster.cheatSheet.points.map(p => `✓ ${p}`).join('\n')}
             <button
               key={p.id}
               onClick={() => setSelectedUnitIdx(idx)}
+              className="hover-lift"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -1022,7 +1023,7 @@ ${currentPoster.cheatSheet.points.map(p => `✓ ${p}`).join('\n')}
                 color: isSelected ? 'var(--primary-indigo)' : 'var(--text-dark)',
                 cursor: 'pointer',
                 textAlign: 'left',
-                transition: 'all 0.15s ease'
+                transition: 'all 0.2s ease'
               }}
             >
               <div style={{
@@ -1279,7 +1280,7 @@ ${currentPoster.cheatSheet.points.map(p => `✓ ${p}`).join('\n')}
 
               {/* Top Row: Thumbnail Image + Core Intuition & Key Points */}
               <div style={{ display: 'grid', gridTemplateColumns: '130px 1fr', gap: 12 }}>
-                <div style={{ borderRadius: 6, overflow: 'hidden', border: '1px solid var(--border-color)', backgroundColor: '#0f172a', height: 110 }}>
+                <div className="img-neat-frame" style={{ height: 110 }}>
                   <img
                     src={sec.image}
                     alt={sec.imageAlt}

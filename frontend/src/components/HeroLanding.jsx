@@ -2,116 +2,108 @@ import React from 'react';
 import { Sparkles, BookOpen, FileImage, HelpCircle, Presentation, ArrowRight, Zap, Brain, Target } from 'lucide-react';
 
 const FEATURES = [
-  { icon: BookOpen, title: 'Units 1–5', desc: 'Complete AI syllabus coverage with interactive concepts', color: '#14b8a6' },
-  { icon: FileImage, title: 'Visual Posters', desc: 'One poster per unit covering the entire concept map', color: '#a855f7' },
-  { icon: Presentation, title: 'PPT Downloads', desc: 'Presentation slides with diagrams for every unit', color: '#f59e0b' },
-  { icon: HelpCircle, title: 'Quiz Studio', desc: '10–15 questions per unit to test your knowledge', color: '#f43f5e' },
+  { icon: BookOpen, title: 'Units 1–5 Syllabus', desc: 'Complete AI syllabus coverage with interactive concepts and deep dives', color: '#0d9488' },
+  { icon: FileImage, title: 'Visual Posters', desc: 'One master poster per unit covering the entire concept map', color: '#7c3aed' },
+  { icon: Presentation, title: 'PPT Generator', desc: 'Presentation slides with diagrams and key takeaways for every unit', color: '#d97706' },
+  { icon: HelpCircle, title: 'Quiz Studio', desc: '10–12 questions per unit with auto-grading and memory tips', color: '#e11d48' },
 ];
 
 export default function HeroLanding({ onExplore }) {
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '48px', alignItems: 'center' }}>
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '36px', alignItems: 'center' }}>
 
-      {/* ── Hero Section ──────────────────────────────────── */}
-      <div style={{
+      {/* ── Hero Banner Section ───────────────────────────── */}
+      <div className="edtech-card hover-lift" style={{
         width: '100%',
         borderRadius: 'var(--radius-xl)',
-        background: 'linear-gradient(135deg, rgba(20,184,166,0.12) 0%, rgba(99,102,241,0.10) 50%, rgba(168,85,247,0.08) 100%)',
+        background: 'linear-gradient(135deg, #ffffff 0%, #f0fdf4 50%, #eff6ff 100%)',
         border: '1px solid var(--border-color)',
-        padding: '64px 48px',
-        display: 'flex',
-        flexDirection: 'column',
+        padding: '48px 40px',
+        display: 'grid',
+        gridTemplateColumns: '1fr 340px',
+        gap: '40px',
         alignItems: 'center',
-        textAlign: 'center',
         position: 'relative',
         overflow: 'hidden'
       }}>
-        {/* Floating glow orbs */}
-        <div style={{
-          position: 'absolute', top: '-60px', left: '-60px',
-          width: '200px', height: '200px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(20,184,166,0.2) 0%, transparent 70%)',
-          filter: 'blur(40px)', pointerEvents: 'none'
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '-40px', right: '-40px',
-          width: '180px', height: '180px', borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(99,102,241,0.2) 0%, transparent 70%)',
-          filter: 'blur(40px)', pointerEvents: 'none'
-        }} />
 
-        {/* Badge */}
-        <div style={{
-          display: 'inline-flex', alignItems: 'center', gap: '8px',
-          padding: '6px 16px', borderRadius: 'var(--radius-full)',
-          background: 'var(--primary-teal-light)', border: '1px solid rgba(20,184,166,0.3)',
-          fontSize: '0.78rem', fontWeight: 700, color: 'var(--primary-teal)',
-          marginBottom: '20px'
-        }}>
-          <Sparkles size={14} /> AI-Powered Learning Platform
+        {/* Left Column: Text & CTAs */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+          {/* Badge */}
+          <div style={{
+            display: 'inline-flex', alignItems: 'center', gap: '8px',
+            padding: '6px 14px', borderRadius: 'var(--radius-full)',
+            background: 'var(--primary-teal-light)', border: '1px solid rgba(13,148,136,0.3)',
+            fontSize: '0.78rem', fontWeight: 700, color: 'var(--primary-teal-dark)',
+            width: 'fit-content'
+          }}>
+            <Sparkles size={14} /> AI-Powered Learning Platform
+          </div>
+
+          {/* Title */}
+          <h1 style={{
+            fontSize: 'clamp(2rem, 3.5vw, 2.75rem)', fontWeight: 800,
+            lineHeight: 1.2, color: 'var(--text-dark)', letterSpacing: '-0.02em'
+          }}>
+            Explore Your <span className="gradient-text-edtech">AI Courses</span> Journey
+          </h1>
+
+          <p style={{
+            fontSize: '1rem', color: 'var(--text-muted)',
+            lineHeight: 1.6, maxWidth: '540px'
+          }}>
+            Master 5 Units of Artificial Intelligence — visual posters, interactive quizzes, downloadable PPTs, and exam-ready Q&A with student-drawable diagrams.
+          </p>
+
+          {/* CTA Buttons */}
+          <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap', paddingTop: '8px' }}>
+            <button
+              className="btn-primary"
+              onClick={() => onExplore('units')}
+              style={{ padding: '12px 28px', fontSize: '0.95rem' }}
+            >
+              <BookOpen size={18} /> Start Learning <ArrowRight size={16} />
+            </button>
+            <button
+              className="btn-secondary"
+              onClick={() => onExplore('posters')}
+              style={{ padding: '12px 24px', fontSize: '0.95rem' }}
+            >
+              <FileImage size={18} /> View Posters
+            </button>
+          </div>
+
+          {/* Quick Stats */}
+          <div style={{ display: 'flex', gap: '32px', marginTop: '16px', flexWrap: 'wrap' }}>
+            {[
+              { icon: Brain, value: '5 Units', label: 'Full Syllabus' },
+              { icon: Target, value: '65+ Qs', label: 'Quiz Bank' },
+              { icon: Zap, value: '5 Posters', label: 'Visual Maps' },
+            ].map((s, i) => (
+              <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div style={{
+                  width: '38px', height: '38px', borderRadius: 'var(--radius-md)',
+                  background: 'var(--primary-teal-light)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center'
+                }}>
+                  <s.icon size={18} color="var(--primary-teal-dark)" />
+                </div>
+                <div>
+                  <div style={{ fontSize: '1.05rem', fontWeight: 800, color: 'var(--text-dark)' }}>{s.value}</div>
+                  <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{s.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
 
-        {/* Title */}
-        <h1 style={{
-          fontSize: 'clamp(2rem, 4vw, 3rem)', fontWeight: 800,
-          lineHeight: 1.15, marginBottom: '16px', maxWidth: '700px',
-          letterSpacing: '-0.03em'
-        }}>
-          Explore Your{' '}
-          <span className="gradient-text-edtech">AI Courses</span>
-          {' '}Journey
-        </h1>
-
-        <p style={{
-          fontSize: '1.05rem', color: 'var(--text-muted)',
-          maxWidth: '560px', lineHeight: 1.7, marginBottom: '32px'
-        }}>
-          Dive into 5 units of Artificial Intelligence — visual posters, interactive quizzes,
-          downloadable PPTs, and exam-ready Q&A with diagrams.
-        </p>
-
-        {/* CTA Buttons */}
-        <div style={{ display: 'flex', gap: '14px', flexWrap: 'wrap', justifyContent: 'center' }}>
-          <button
-            className="btn-primary animate-pulse-glow"
-            onClick={() => onExplore('units')}
-            style={{ padding: '14px 32px', fontSize: '1rem' }}
-          >
-            <BookOpen size={18} /> Start Learning <ArrowRight size={16} />
-          </button>
-          <button
-            className="btn-secondary"
-            onClick={() => onExplore('posters')}
-            style={{ padding: '14px 28px', fontSize: '1rem' }}
-          >
-            <FileImage size={18} /> View Posters
-          </button>
-        </div>
-
-        {/* Quick Stats */}
-        <div style={{
-          display: 'flex', gap: '40px', marginTop: '48px',
-          flexWrap: 'wrap', justifyContent: 'center'
-        }}>
-          {[
-            { icon: Brain, value: '5 Units', label: 'Full Syllabus' },
-            { icon: Target, value: '75+ Qs', label: 'Quiz Bank' },
-            { icon: Zap, value: '5 Posters', label: 'Visual Maps' },
-          ].map((s, i) => (
-            <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-              <div style={{
-                width: '40px', height: '40px', borderRadius: 'var(--radius-md)',
-                background: 'var(--primary-teal-light)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center'
-              }}>
-                <s.icon size={18} color="var(--primary-teal)" />
-              </div>
-              <div>
-                <div style={{ fontSize: '1.1rem', fontWeight: 800, color: 'var(--text-white)' }}>{s.value}</div>
-                <div style={{ fontSize: '0.75rem', color: 'var(--text-muted)' }}>{s.label}</div>
-              </div>
-            </div>
-          ))}
+        {/* Right Column: Neat Image Banner */}
+        <div className="img-neat-frame" style={{ height: '280px', width: '100%', boxShadow: 'var(--shadow-md)' }}>
+          <img
+            src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=800&q=80"
+            alt="Artificial Intelligence Learning"
+            style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+          />
         </div>
       </div>
 
@@ -135,21 +127,21 @@ export default function HeroLanding({ onExplore }) {
                 else if (f.title.includes('Quiz')) onExplore('quiz');
               }}
               style={{
-                padding: '28px 24px',
-                display: 'flex', flexDirection: 'column', gap: '14px',
+                padding: '24px',
+                display: 'flex', flexDirection: 'column', gap: '12px',
                 animationDelay: `${i * 0.08}s`
               }}
             >
               <div style={{
-                width: '48px', height: '48px', borderRadius: 'var(--radius-md)',
-                background: `${f.color}20`, border: `1px solid ${f.color}40`,
+                width: '44px', height: '44px', borderRadius: 'var(--radius-md)',
+                background: `${f.color}15`, border: `1px solid ${f.color}30`,
                 display: 'flex', alignItems: 'center', justifyContent: 'center'
               }}>
-                <Icon size={22} color={f.color} />
+                <Icon size={20} color={f.color} />
               </div>
-              <h3 style={{ fontSize: '1.05rem', fontWeight: 700 }}>{f.title}</h3>
+              <h3 style={{ fontSize: '1.02rem', fontWeight: 700, color: 'var(--text-dark)' }}>{f.title}</h3>
               <p style={{ fontSize: '0.85rem', color: 'var(--text-muted)', lineHeight: 1.5 }}>{f.desc}</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: 600, color: f.color, marginTop: 'auto' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', fontSize: '0.8rem', fontWeight: 700, color: f.color, marginTop: 'auto' }}>
                 Explore <ArrowRight size={14} />
               </div>
             </div>

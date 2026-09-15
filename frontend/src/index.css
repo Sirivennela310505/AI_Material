@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
   /* Clean Light Theme Backgrounds */
@@ -8,28 +8,27 @@
   --bg-card-subtle: #f1f5f9;
   --bg-card-hover: #e2e8f0;
 
-  /* Text Colors */
+  /* Crisp Readable Text Colors */
   --text-dark: #0f172a;
   --text-muted: #64748b;
   --text-light: #475569;
-  --text-white: #0f172a; /* Light theme primary text */
+  --text-white: #0f172a;
 
   /* Borders */
   --border-color: #e2e8f0;
   --border-strong: #cbd5e1;
 
-  /* Primary teal accent */
+  /* Primary Teal & Indigo Accents */
   --primary-teal: #0d9488;
   --primary-teal-dark: #0f766e;
   --primary-teal-light: #ccfbf1;
 
-  /* Secondary indigo */
   --primary-indigo: #4f46e5;
   --primary-indigo-light: #e0e7ff;
   --primary-blue: #2563eb;
   --primary-blue-light: #dbeafe;
 
-  /* Accents */
+  /* Vibrant Accents */
   --accent-emerald: #059669;
   --accent-emerald-light: #d1fae5;
   --accent-amber: #d97706;
@@ -40,15 +39,15 @@
   --accent-purple-light: #f3e8ff;
 
   /* Typography */
-  --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
   /* Shadows (Light Mode Crisp) */
   --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.03);
   --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
   --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -2px rgba(0,0,0,0.03);
-  --shadow-glow-teal: 0 4px 14px rgba(13,148,136,0.15);
-  --shadow-glow-indigo: 0 4px 14px rgba(79,70,229,0.15);
+  --shadow-glow-teal: 0 4px 16px rgba(13,148,136,0.18);
+  --shadow-glow-indigo: 0 4px 16px rgba(79,70,229,0.18);
 
   /* Border radius */
   --radius-sm: 6px;
@@ -58,7 +57,7 @@
   --radius-full: 9999px;
 }
 
-/* ── Reset ─────────────────────────────────────────────── */
+/* ── Global Reset & Font ─────────────────────────────── */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -75,13 +74,13 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ── Clean Light Card ───────────────────────────────────── */
+/* ── Clean Light Card with Smooth Hover ──────────────── */
 .edtech-card {
   background: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: var(--radius-lg);
   box-shadow: var(--shadow-sm);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .edtech-card:hover {
@@ -94,9 +93,48 @@ body {
 }
 
 .edtech-card-interactive:hover {
-  transform: translateY(-2px);
+  transform: translateY(-4px);
   box-shadow: var(--shadow-lg), var(--shadow-glow-teal);
   border-color: var(--primary-teal);
+}
+
+/* ── Neat Image Frames with Smooth Zoom Hover ────────── */
+.img-neat-frame {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-color);
+  background-color: #f1f5f9;
+}
+
+.img-neat-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+}
+
+.img-neat-frame:hover img {
+  transform: scale(1.05);
+}
+
+/* ── Hover Utilities ────────────────────────────────── */
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.hover-scale {
+  transition: transform 0.2s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.02);
 }
 
 /* ── Gradient Text ─────────────────────────────────────── */
@@ -106,12 +144,12 @@ body {
   -webkit-text-fill-color: transparent;
 }
 
-/* ── Buttons ────────────────────────────────────────────── */
+/* ── Clean Buttons with Hover States ───────────────────── */
 .btn-primary {
   background: linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-teal-dark) 100%);
   color: #ffffff !important;
   border: none;
-  padding: 10px 20px;
+  padding: 10px 22px;
   border-radius: var(--radius-md);
   font-weight: 700;
   font-size: 0.9rem;
@@ -120,20 +158,20 @@ body {
   align-items: center;
   gap: 8px;
   box-shadow: 0 2px 8px rgba(13,148,136,0.25);
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-primary:hover {
   background: linear-gradient(135deg, #0f766e 0%, #115e59 100%);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(13,148,136,0.35);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(13,148,136,0.35);
 }
 
 .btn-secondary {
   background: #ffffff;
   color: var(--text-dark);
   border: 1px solid var(--border-strong);
-  padding: 10px 18px;
+  padding: 10px 20px;
   border-radius: var(--radius-md);
   font-weight: 600;
   font-size: 0.9rem;
@@ -141,13 +179,14 @@ body {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  transition: all 0.2s ease;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .btn-secondary:hover {
   background: var(--bg-card-subtle);
   border-color: var(--primary-teal);
-  color: var(--primary-teal);
+  color: var(--primary-teal-dark);
+  transform: translateY(-1px);
 }
 
 /* ── Animations ────────────────────────────────────────── */
