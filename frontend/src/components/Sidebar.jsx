@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Home,
   BookOpen,
@@ -12,18 +12,20 @@ import {
   BarChart3,
   RotateCcw,
   Sparkles,
-  GraduationCap
+  GraduationCap,
+  ChevronDown,
+  ChevronRight
 } from 'lucide-react';
 
-const NAV_GROUPS = [
-  {
-    label: 'Platform',
-    items: [
-      { id: 'home',   label: 'Home',           icon: Home,         badge: null },
-      { id: 'units',  label: 'AI Course (5 Units)', icon: BookOpen, badge: 'Course' },
-      { id: 'tutor',  label: 'AI Tutor Chat',  icon: MessageSquare, badge: null },
-    ]
-  },
+const UNITS_LIST = [
+  { id: 'unit-1', label: 'Unit 1: Intelligent Agents', badge: 'PEAS & Logic' },
+  { id: 'unit-2', label: 'Unit 2: Heuristic Search', badge: 'A* Search' },
+  { id: 'unit-3', label: 'Unit 3: Constraints & Games', badge: 'Minimax & CSP' },
+  { id: 'unit-4', label: 'Unit 4: Knowledge & Logic', badge: 'FOL & Chaining' },
+  { id: 'unit-5', label: 'Unit 5: AI Applications', badge: 'NLP & Robotics' },
+];
+
+const OTHER_GROUPS = [
   {
     label: 'Learning Tools',
     items: [
@@ -31,7 +33,7 @@ const NAV_GROUPS = [
       { id: 'posters',      label: 'Unit Posters',     icon: FileImage,    badge: '5 Posters' },
       { id: 'presentation', label: 'PPT Generator',    icon: Presentation, badge: null },
       { id: 'important',    label: 'Top Questions',    icon: BookMarked,   badge: '50 Q' },
-      { id: 'quiz',         label: 'Quiz Studio',      icon: HelpCircle,   badge: '10–15/Unit' },
+      { id: 'quiz',         label: 'Quiz Studio',      icon: HelpCircle,   badge: '10–12/Unit' },
     ]
   },
   {
@@ -45,7 +47,9 @@ const NAV_GROUPS = [
   }
 ];
 
-export default function Sidebar({ activeTab, setActiveTab }) {
+export default function Sidebar({ activeTab, setActiveTab, selectedUnitId, onSelectUnit }) {
+  const [unitsExpanded, setUnitsExpanded] = useState(true);
+
   return (
     <aside style={{
       width: '260px',
@@ -67,10 +71,10 @@ export default function Sidebar({ activeTab, setActiveTab }) {
         display: 'flex', alignItems: 'center', gap: '12px',
         padding: '4px 8px 22px 8px',
         borderBottom: '1px solid var(--border-color)',
-        marginBottom: '20px'
+        marginBottom: '16px'
       }}>
         <div style={{
-          width: '40px', height: '40px', borderRadius: '12px',
+          width: '38px', height: '38px', borderRadius: '12px',
           background: 'linear-gradient(135deg, #0d9488 0%, #0f766e 100%)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
           boxShadow: '0 4px 14px rgba(13,148,136,0.3)'
@@ -88,13 +92,132 @@ export default function Sidebar({ activeTab, setActiveTab }) {
       </div>
 
       {/* Nav Groups */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '24px' }}>
-        {NAV_GROUPS.map(group => (
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '20px' }}>
+        
+        {/* Platform Section */}
+        <div>
+          <div style={{
+            fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase',
+            letterSpacing: '0.1em', color: 'var(--text-muted)',
+            padding: '0 10px 6px 10px'
+          }}>
+            Platform
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
+            {/* Home Tab */}
+            <button
+              onClick={() => setActiveTab('home')}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '9px 12px', borderRadius: 'var(--radius-md)', border: 'none',
+                background: activeTab === 'home' ? 'var(--primary-teal-light)' : 'transparent',
+                color: activeTab === 'home' ? 'var(--primary-teal-dark)' : 'var(--text-dark)',
+                fontWeight: activeTab === 'home' ? 700 : 500, fontSize: '0.855rem',
+                cursor: 'pointer', textAlign: 'left', transition: 'all 0.18s ease',
+                borderLeft: activeTab === 'home' ? '3px solid var(--primary-teal)' : '3px solid transparent'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Home size={16} color={activeTab === 'home' ? 'var(--primary-teal-dark)' : 'currentColor'} />
+                <span>Home</span>
+              </div>
+            </button>
+
+            {/* AI Course Units Expandable Header */}
+            <button
+              onClick={() => {
+                setActiveTab('units');
+                setUnitsExpanded(!unitsExpanded);
+              }}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '9px 12px', borderRadius: 'var(--radius-md)', border: 'none',
+                background: activeTab === 'units' ? 'var(--primary-teal-light)' : 'transparent',
+                color: activeTab === 'units' ? 'var(--primary-teal-dark)' : 'var(--text-dark)',
+                fontWeight: activeTab === 'units' ? 700 : 500, fontSize: '0.855rem',
+                cursor: 'pointer', textAlign: 'left', transition: 'all 0.18s ease',
+                borderLeft: activeTab === 'units' ? '3px solid var(--primary-teal)' : '3px solid transparent'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <BookOpen size={16} color={activeTab === 'units' ? 'var(--primary-teal-dark)' : 'currentColor'} />
+                <span>AI Course (Units 1–5)</span>
+              </div>
+              {unitsExpanded ? <ChevronDown size={15} /> : <ChevronRight size={15} />}
+            </button>
+
+            {/* ── Sub-Menu: Unit 1 to Unit 5 Clickable Items ────────────────── */}
+            {unitsExpanded && (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', paddingLeft: '16px', marginTop: '2px' }}>
+                {UNITS_LIST.map((unit) => {
+                  const isUnitActive = activeTab === 'units' && selectedUnitId === unit.id;
+                  return (
+                    <button
+                      key={unit.id}
+                      onClick={() => {
+                        if (onSelectUnit) onSelectUnit(unit.id);
+                        else setActiveTab('units');
+                      }}
+                      style={{
+                        display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                        padding: '7px 10px', borderRadius: 'var(--radius-sm)', border: 'none',
+                        background: isUnitActive ? 'var(--primary-teal-light)' : 'transparent',
+                        color: isUnitActive ? 'var(--primary-teal-dark)' : 'var(--text-muted)',
+                        fontWeight: isUnitActive ? 700 : 500, fontSize: '0.8rem',
+                        cursor: 'pointer', textAlign: 'left', transition: 'all 0.15s ease'
+                      }}
+                      onMouseEnter={e => {
+                        if (!isUnitActive) {
+                          e.currentTarget.style.background = 'var(--bg-card-subtle)';
+                          e.currentTarget.style.color = 'var(--primary-teal-dark)';
+                        }
+                      }}
+                      onMouseLeave={e => {
+                        if (!isUnitActive) {
+                          e.currentTarget.style.background = 'transparent';
+                          e.currentTarget.style.color = 'var(--text-muted)';
+                        }
+                      }}
+                    >
+                      <span>{unit.label}</span>
+                      {isUnitActive && (
+                        <span style={{ width: '6px', height: '6px', borderRadius: '50%', backgroundColor: 'var(--primary-teal)' }} />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* AI Tutor Chat */}
+            <button
+              onClick={() => setActiveTab('tutor')}
+              style={{
+                display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                padding: '9px 12px', borderRadius: 'var(--radius-md)', border: 'none',
+                background: activeTab === 'tutor' ? 'var(--primary-teal-light)' : 'transparent',
+                color: activeTab === 'tutor' ? 'var(--primary-teal-dark)' : 'var(--text-dark)',
+                fontWeight: activeTab === 'tutor' ? 700 : 500, fontSize: '0.855rem',
+                cursor: 'pointer', textAlign: 'left', transition: 'all 0.18s ease',
+                borderLeft: activeTab === 'tutor' ? '3px solid var(--primary-teal)' : '3px solid transparent'
+              }}
+            >
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <MessageSquare size={16} color={activeTab === 'tutor' ? 'var(--primary-teal-dark)' : 'currentColor'} />
+                <span>AI Tutor Chat</span>
+              </div>
+            </button>
+          </div>
+        </div>
+
+        {/* Other Nav Groups */}
+        {OTHER_GROUPS.map(group => (
           <div key={group.label}>
             <div style={{
               fontSize: '0.65rem', fontWeight: 700, textTransform: 'uppercase',
               letterSpacing: '0.1em', color: 'var(--text-muted)',
-              padding: '0 10px 8px 10px'
+              padding: '0 10px 6px 10px'
             }}>
               {group.label}
             </div>
@@ -126,7 +249,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
                     onMouseEnter={e => {
                       if (!isActive) {
                         e.currentTarget.style.background = 'var(--bg-card-subtle)';
-                        e.currentTarget.style.color = 'var(--primary-teal)';
+                        e.currentTarget.style.color = 'var(--primary-teal-dark)';
                       }
                     }}
                     onMouseLeave={e => {
