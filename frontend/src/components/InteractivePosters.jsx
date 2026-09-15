@@ -2,853 +2,794 @@ import React, { useState } from 'react';
 import {
   Maximize2,
   Printer,
-  Download,
   BookOpen,
   Zap,
   Target,
   CheckCircle2,
-  Lightbulb,
   Layers,
-  Cpu,
   Search,
   Grid,
   Database,
-  Compass,
   ArrowRight,
+  ArrowLeft,
   Sparkles,
   GitBranch,
   Brain,
-  Sliders,
-  Share2,
   X,
   Eye,
-  Activity
+  Activity,
+  Image as ImageIcon,
+  Check,
+  LayoutGrid
 } from 'lucide-react';
 
-const ANIMATED_POSTERS = [
+const UNIT_POSTERS = [
   {
     id: 'unit-1',
     unitNumber: 1,
     unitRoman: 'UNIT I',
-    badge: 'ANIMATED RECTANGLE POSTER',
+    badge: 'BLUEPRINT CONCEPT POSTER',
     title: 'Intelligent Agents & PEAS Framework',
-    subtitle: 'Foundations of AI, PEAS Specifications, Agent Architectures & State Space',
-    heroImage: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?w=800&q=80',
+    subtitle: 'Sensors, Percept Sequence, Agent Functions & Environment Types',
+    image: '/posters/unit1.jpg',
+    imageCaption: 'Blueprint 1.1: Intelligent Agent Perception-Action Loop & Sensor-Actuator Architecture (PEAS)',
     formula: 'Agent Function: f: P* ➔ A (Percepts to Action)',
     color: '#0d9488',
-    gradient: 'linear-gradient(135deg, #0d9488 0%, #2563eb 50%, #0d9488 100%)',
-    bgLight: '#ccfbf1',
-    diagramType: 'peas',
-    nodes: [
+    gradient: 'linear-gradient(135deg, #0f766e 0%, #0d9488 50%, #2563eb 100%)',
+    bgLight: '#f0fdfa',
+    accentBorder: '#99f6e4',
+    pillars: [
       {
-        title: 'Foundations & Turing Test',
-        desc: 'Turing Test (1950) for acting humanly. Standard Model of Rationality maximizes expected performance P.',
-        chips: ['Acting Humanly', 'Thinking Humanly', 'Rational Action']
+        icon: <Brain size={14} color="#0d9488" />,
+        label: 'Agent Function',
+        value: 'f: P* → A maps percept history to rational actions'
       },
       {
-        title: 'PEAS Framework Matrix',
-        desc: 'Formal 4-part specification: Performance Measure, Environment, Actuators (outputs), Sensors (inputs).',
-        chips: ['P: Safety & Speed', 'E: Roads & Weather', 'A: Steering/Brakes', 'S: Camera/LiDAR']
+        icon: <Target size={14} color="#0d9488" />,
+        label: 'PEAS Framework',
+        value: 'Performance, Environment, Actuators, Sensors'
       },
       {
-        title: '5 Agent Architecture Classes',
-        desc: 'Reflex, Model-Based (internal memory), Goal-Based, Utility-Based, and Learning Agents.',
-        chips: ['Simple Reflex', 'Model-Based State', 'Goal & Utility']
+        icon: <Layers size={14} color="#0d9488" />,
+        label: '5 Agent Classes',
+        value: 'Simple Reflex, Model-Based, Goal, Utility, Learning'
       },
       {
-        title: 'State-Space Formulation',
-        desc: 'Formulates initial state S0, actions A(s), transition result Result(s,a), goal test, and path cost.',
-        chips: ['Initial State S0', 'Result(s,a)', 'Goal Test G(s)']
+        icon: <GitBranch size={14} color="#0d9488" />,
+        label: 'State Space',
+        value: 'Initial State S₀, Actions A, Transition Result, Goal Test'
       }
     ],
-    examTip: 'Exam Golden Tip: Always draw the 4 PEAS boxes (Performance, Environment, Actuators, Sensors) for +4 Marks!'
+    takeaway: 'Exam Takeaway: A rational agent always selects the action that maximizes expected performance measure P based on percept sequence.'
   },
   {
     id: 'unit-2',
     unitNumber: 2,
     unitRoman: 'UNIT II',
-    badge: 'ANIMATED RECTANGLE POSTER',
+    badge: 'BLUEPRINT CONCEPT POSTER',
     title: 'Heuristic Search & A* Algorithm',
-    subtitle: 'Uninformed Search, Informed A* Evaluation, Heuristics & Local Optimization',
-    heroImage: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80',
+    subtitle: 'State-Space Frontier, Evaluation Function f(n) & Heuristic Admissibility',
+    image: '/posters/unit2.jpg',
+    imageCaption: 'Blueprint 2.1: State-Space Graph Network & 2D Grid A* Pathfinding Visualization',
     formula: 'A* Evaluation: f(n) = g(n) + h(n)',
     color: '#2563eb',
-    gradient: 'linear-gradient(135deg, #2563eb 0%, #4f46e5 50%, #2563eb 100%)',
-    bgLight: '#dbeafe',
-    diagramType: 'astar',
-    nodes: [
+    gradient: 'linear-gradient(135deg, #1d4ed8 0%, #2563eb 50%, #4f46e5 100%)',
+    bgLight: '#eff6ff',
+    accentBorder: '#bfdbfe',
+    pillars: [
       {
-        title: 'Uninformed Search Methods',
-        desc: 'BFS (FIFO, unit cost optimal), DFS (LIFO, O(b*d) space), and Uniform Cost Search g(n).',
-        chips: ['BFS (FIFO)', 'DFS (LIFO)', 'Uniform Cost (UCS)']
+        icon: <Search size={14} color="#2563eb" />,
+        label: 'Evaluation Function',
+        value: 'f(n) = g(n) [actual cost] + h(n) [estimated goal cost]'
       },
       {
-        title: 'Informed A* Search & Heuristics',
-        desc: 'Combines actual path cost g(n) with admissible heuristic estimate h(n) (never overestimates).',
-        chips: ['f(n) = g(n) + h(n)', 'Admissibility (h ≤ h*)', 'Consistency']
+        icon: <CheckCircle2 size={14} color="#2563eb" />,
+        label: 'Admissibility Rule',
+        value: '0 ≤ h(n) ≤ h*(n) guarantees optimal shortest path'
       },
       {
-        title: 'Grid Navigation Metrics',
-        desc: 'Manhattan distance (|Δx| + |Δy|) for 4-way grid motion; Euclidean straight-line distance.',
-        chips: ['Manhattan Metric', 'Euclidean Metric', '8-Puzzle Heuristic']
+        icon: <Grid size={14} color="#2563eb" />,
+        label: 'Grid Metrics',
+        value: 'Manhattan (|Δx| + |Δy|) & Straight-Line Euclidean Distance'
       },
       {
-        title: 'Local Optimization Landscapes',
-        desc: 'Hill-Climbing local greedy choice (local maxima trap) and Simulated Annealing temperature decay T.',
-        chips: ['Hill Climbing Maxima', 'Simulated Annealing', 'Genetic Search']
+        icon: <Activity size={14} color="#2563eb" />,
+        label: 'Local Optimization',
+        value: 'Hill Climbing greedy choices & Simulated Annealing temperature'
       }
     ],
-    examTip: 'Exam Golden Tip: An admissible heuristic NEVER overestimates true cost to reach goal: 0 ≤ h(n) ≤ h*(n).'
+    takeaway: 'Exam Takeaway: If h(n) is admissible, A* tree search is guaranteed to be optimal and complete.'
   },
   {
     id: 'unit-3',
     unitNumber: 3,
     unitRoman: 'UNIT III',
-    badge: 'ANIMATED RECTANGLE POSTER',
-    title: 'Constraints & Adversarial Search',
-    subtitle: 'CSPs, Arc Consistency (AC-3), Minimax Game Tree & Alpha-Beta Cutoffs',
-    heroImage: 'https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?w=800&q=80',
-    formula: 'Alpha-Beta Cutoff: Prune when Alpha (MAX) ≥ Beta (MIN)',
+    badge: 'BLUEPRINT CONCEPT POSTER',
+    title: 'Adversarial Search & CSP',
+    subtitle: 'Minimax Game Tree, Alpha-Beta Cutoffs & Constraint Satisfaction',
+    image: '/posters/unit3.jpg',
+    imageCaption: 'Blueprint 3.1: Minimax Two-Player Game Tree with Alpha-Beta Pruning & Constraint Graph',
+    formula: 'Alpha-Beta Cutoff: Prune branch when α ≥ β',
     color: '#7c3aed',
-    gradient: 'linear-gradient(135deg, #7c3aed 0%, #d97706 50%, #7c3aed 100%)',
-    bgLight: '#f3e8ff',
-    diagramType: 'minimax',
-    nodes: [
+    gradient: 'linear-gradient(135deg, #6d28d9 0%, #7c3aed 50%, #9333ea 100%)',
+    bgLight: '#faf5ff',
+    accentBorder: '#e9d5ff',
+    pillars: [
       {
-        title: 'CSP Formal Triplet (X, D, C)',
-        desc: 'Variables X, Domains D of allowable values, and Constraints C restricting legal assignments.',
-        chips: ['Variables X', 'Domains D', 'Constraints C']
+        icon: <GitBranch size={14} color="#7c3aed" />,
+        label: 'Minimax Rule',
+        value: 'MAX maximizes utility; MIN minimizes opponent score'
       },
       {
-        title: 'Arc Consistency & AC-3',
-        desc: 'Prunes illegal domain values prior to backtracking. MRV heuristic selects most constrained variable.',
-        chips: ['AC-3 Algorithm', 'MRV Heuristic', 'Forward Checking']
+        icon: <Zap size={14} color="#7c3aed" />,
+        label: 'Alpha-Beta Pruning',
+        value: 'Eliminates futile subtrees without altering decision outcome'
       },
       {
-        title: 'Minimax Game Tree Search',
-        desc: 'MAX player maximizes score; MIN player minimizes MAX score in two-player zero-sum games.',
-        chips: ['MAX Triangles', 'MIN Triangles', 'Terminal Utility']
+        icon: <Layers size={14} color="#7c3aed" />,
+        label: 'CSP Triplet (X, D, C)',
+        value: 'Variables X, Domain values D, and Constraints C'
       },
       {
-        title: 'Alpha-Beta Pruning Cutoffs',
-        desc: 'Eliminates subtrees that cannot alter the final Minimax choice, doubling depth to O(b^(m/2)).',
-        chips: ['Alpha (MAX Best)', 'Beta (MIN Best)', 'Cutoff (α ≥ β)']
+        icon: <Target size={14} color="#7c3aed" />,
+        label: 'Arc Consistency (AC-3)',
+        value: 'Prunes illegal domain values prior to backtracking search'
       }
     ],
-    examTip: 'Exam Golden Tip: Alpha-Beta pruning removes subtrees without changing the final decision outcome.'
+    takeaway: 'Exam Takeaway: Alpha-Beta pruning reduces time complexity from O(bᵐ) to O(bᵐ/²), effectively doubling the search depth.'
   },
   {
     id: 'unit-4',
     unitNumber: 4,
     unitRoman: 'UNIT IV',
-    badge: 'ANIMATED RECTANGLE POSTER',
+    badge: 'BLUEPRINT CONCEPT POSTER',
     title: 'Knowledge Representation & Logic',
-    subtitle: 'Propositional Logic, First-Order Logic (FOL), Chaining & Resolution',
-    heroImage: 'https://images.unsplash.com/photo-1509228468518-180dd4864904?w=800&q=80',
-    formula: 'Resolution Refutation: Prove KB |= Q by deriving [ ] from (KB ∧ ¬Q)',
+    subtitle: 'Propositional Logic, First-Order Logic (FOL) & Resolution Refutation',
+    image: '/posters/unit4.jpg',
+    imageCaption: 'Blueprint 4.1: First-Order Knowledge Base Inference Graph & CNF Resolution Proof',
+    formula: 'Resolution Proof: KB ∧ ¬Q ⊢ □ (Derive Contradiction)',
     color: '#d97706',
-    gradient: 'linear-gradient(135deg, #d97706 0%, #0d9488 50%, #d97706 100%)',
-    bgLight: '#fef3c7',
-    diagramType: 'logic',
-    nodes: [
+    gradient: 'linear-gradient(135deg, #b45309 0%, #d97706 50%, #ea580c 100%)',
+    bgLight: '#fffbeb',
+    accentBorder: '#fde68a',
+    pillars: [
       {
-        title: 'Propositional & Horn Logic',
-        desc: 'Atomic facts connected by logic operators. Horn clauses (≤1 positive literal) enable O(n) chaining.',
-        chips: ['Propositional Syntax', 'Modus Ponens Rule', 'Horn Clauses O(n)']
+        icon: <Database size={14} color="#d97706" />,
+        label: 'Propositional Logic',
+        value: 'Boolean connectives (∧, ∨, ¬, ⇒) and Modus Ponens inference'
       },
       {
-        title: 'First-Order Logic (FOL)',
-        desc: 'Extends propositional logic by adding Objects, Relations, Functions, and Quantifiers (∀, ∃).',
-        chips: ['Objects & Relations', 'Universal ∀', 'Existential ∃']
+        icon: <Brain size={14} color="#d97706" />,
+        label: 'First-Order Logic (FOL)',
+        value: 'Quantifiers (∀ Universal, ∃ Existential) + Relations & Objects'
       },
       {
-        title: 'Forward & Backward Chaining',
-        desc: 'Forward chaining fires rules data-driven from facts; Backward chaining proves goal hypotheses backwards.',
-        chips: ['Forward (Data-Driven)', 'Backward (Goal-Driven)', 'Unification θ']
+        icon: <ArrowRight size={14} color="#d97706" />,
+        label: 'Chaining Methods',
+        value: 'Forward (data-driven) vs. Backward (goal-directed) for Horn clauses'
       },
       {
-        title: 'Resolution Refutation Proofs',
-        desc: 'Converts KB to CNF (Conjunctive Normal Form), applies unification, and derives empty contradiction clause [ ].',
-        chips: ['CNF Conversion', 'Skolemization ∃x', 'Empty Clause [ ]']
+        icon: <CheckCircle2 size={14} color="#d97706" />,
+        label: 'Resolution Refutation',
+        value: 'Converts KB to CNF with Skolemization to derive empty clause [ ]'
       }
     ],
-    examTip: 'Exam Golden Tip: Skolemization replaces existential quantifiers ∃ with Skolem constants during CNF.'
+    takeaway: 'Exam Takeaway: Resolution refutation combined with unification is sound and complete for First-Order Logic.'
   },
   {
     id: 'unit-5',
     unitNumber: 5,
     unitRoman: 'UNIT V',
-    badge: 'ANIMATED RECTANGLE POSTER',
-    title: 'AI Applications & Frontiers',
-    subtitle: 'STRIPS Planning, Natural Language Processing, Computer Vision & Explainable AI',
-    heroImage: 'https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80',
-    formula: 'STRIPS Action: Preconditions + Add List + Delete List',
+    badge: 'BLUEPRINT CONCEPT POSTER',
+    title: 'AI Planning & Modern Applications',
+    subtitle: 'STRIPS Action Schemas, NLP Transformers & Computer Vision',
+    image: '/posters/unit5.jpg',
+    imageCaption: 'Blueprint 5.1: STRIPS Automated Action State Transitions & Multi-Head Attention',
+    formula: 'STRIPS Action: Preconditions ➔ Add List ➔ Delete List',
     color: '#e11d48',
-    gradient: 'linear-gradient(135deg, #e11d48 0%, #7c3aed 50%, #e11d48 100%)',
-    bgLight: '#ffe4e6',
-    diagramType: 'strips',
-    nodes: [
+    gradient: 'linear-gradient(135deg, #be123c 0%, #e11d48 50%, #f43f5e 100%)',
+    bgLight: '#fff1f2',
+    accentBorder: '#fecdd3',
+    pillars: [
       {
-        title: 'STRIPS Automated Planning',
-        desc: 'Action schemas defined by Preconditions (must be True), Add List (new facts), and Delete List.',
-        chips: ['Preconditions', 'Add List', 'Delete List', 'POP Planning']
+        icon: <Target size={14} color="#e11d48" />,
+        label: 'STRIPS Planning',
+        value: 'State transition schemas with Preconditions, Add list & Delete list'
       },
       {
-        title: 'NLP & Transformer Attention',
-        desc: 'Self-Attention processes contextual sequences in parallel powering modern Large Language Models.',
-        chips: ['Parse Trees', 'Self-Attention', 'Transformer Models']
+        icon: <Layers size={14} color="#e11d48" />,
+        label: 'Planning Graphs',
+        value: 'Polynomial time heuristic estimation & Mutex relation pruning'
       },
       {
-        title: 'Computer Vision Convolution',
-        desc: 'CNN convolution kernels extract edge & feature maps for real-time object detection (YOLO).',
-        chips: ['CNN Feature Maps', 'Convolution Kernels', 'YOLO Object Detection']
+        icon: <Zap size={14} color="#e11d48" />,
+        label: 'NLP Transformers',
+        value: 'Self-Attention mechanism parallelizing contextual sequence learning'
       },
       {
-        title: 'Robotics & Explainable AI (XAI)',
-        desc: 'Inverse kinematics positions robotic joints; XAI methods (SHAP, LIME) demystify opaque black boxes.',
-        chips: ['Inverse Kinematics', 'XAI (SHAP/LIME)', 'Algorithmic Fairness']
+        icon: <Activity size={14} color="#e11d48" />,
+        label: 'Computer Vision & XAI',
+        value: 'CNN feature extraction with Explainable AI (SHAP & LIME)'
       }
     ],
-    examTip: 'Exam Golden Tip: Explainable AI (XAI) provides human-interpretable rationales for opaque deep learning models.'
+    takeaway: 'Exam Takeaway: STRIPS planning models actions as state transitions, searching for a sequence that reaches the goal.'
   }
 ];
 
-// Helper to render live animated SVG diagram for poster concept card
-function PosterAnimatedDiagram({ type, color }) {
-  if (type === 'peas') {
-    return (
-      <svg viewBox="0 0 400 120" style={{ width: '100%', height: '100px' }}>
-        <rect x="10" y="30" width="80" height="60" rx="8" fill="#ffffff" stroke={color} strokeWidth="2" />
-        <text x="50" y="55" textAnchor="middle" fontSize="11" fontWeight="800" fill={color}>Sensors</text>
-        <text x="50" y="72" textAnchor="middle" fontSize="9" fill="#64748b">Cameras, LiDAR</text>
-
-        <path d="M 90 60 L 140 60" stroke={color} strokeWidth="2" strokeDasharray="4 2" />
-        <polygon points="140,56 148,60 140,64" fill={color} />
-
-        <rect x="150" y="20" width="100" height="80" rx="10" fill={color} opacity="0.1" stroke={color} strokeWidth="2" />
-        <text x="200" y="50" textAnchor="middle" fontSize="12" fontWeight="800" fill={color}>Agent Program</text>
-        <text x="200" y="68" textAnchor="middle" fontSize="9" fontWeight="700" fill="#334155">f: P* ➔ Action</text>
-
-        <path d="M 250 60 L 300 60" stroke={color} strokeWidth="2" strokeDasharray="4 2" />
-        <polygon points="300,56 308,60 300,64" fill={color} />
-
-        <rect x="310" y="30" width="80" height="60" rx="8" fill="#ffffff" stroke={color} strokeWidth="2" />
-        <text x="350" y="55" textAnchor="middle" fontSize="11" fontWeight="800" fill={color}>Actuators</text>
-        <text x="350" y="72" textAnchor="middle" fontSize="9" fill="#64748b">Brakes, Motor</text>
-      </svg>
-    );
-  }
-
-  if (type === 'astar') {
-    return (
-      <svg viewBox="0 0 400 120" style={{ width: '100%', height: '100px' }}>
-        <circle cx="50" cy="60" r="20" fill="#ffffff" stroke={color} strokeWidth="2" />
-        <text x="50" y="64" textAnchor="middle" fontSize="11" fontWeight="800" fill={color}>S (Start)</text>
-
-        <line x1="70" y1="50" x2="160" y2="30" stroke={color} strokeWidth="2" />
-        <text x="110" y="34" fontSize="9" fontWeight="700" fill={color}>g=2, h=4 (f=6)</text>
-        <circle cx="180" cy="30" r="18" fill="#ffffff" stroke={color} strokeWidth="2" />
-        <text x="180" y="34" textAnchor="middle" fontSize="10" fontWeight="700" fill="#334155">A</text>
-
-        <line x1="70" y1="70" x2="160" y2="90" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="3 3" />
-        <text x="110" y="95" fontSize="9" fill="#94a3b8">g=5, h=3 (f=8)</text>
-        <circle cx="180" cy="90" r="18" fill="#ffffff" stroke="#cbd5e1" strokeWidth="2" />
-        <text x="180" y="94" textAnchor="middle" fontSize="10" fill="#94a3b8">B</text>
-
-        <line x1="198" y1="30" x2="320" y2="60" stroke={color} strokeWidth="2" />
-        <text x="260" y="40" fontSize="9" fontWeight="800" fill={color}>Optimal Path ✓</text>
-        <circle cx="340" cy="60" r="20" fill={color} />
-        <text x="340" y="64" textAnchor="middle" fontSize="11" fontWeight="800" fill="#ffffff">G (Goal)</text>
-      </svg>
-    );
-  }
-
-  if (type === 'minimax') {
-    return (
-      <svg viewBox="0 0 400 120" style={{ width: '100%', height: '100px' }}>
-        <polygon points="200,15 185,45 215,45" fill={color} />
-        <text x="200" y="38" textAnchor="middle" fontSize="10" fontWeight="800" fill="#ffffff">v=7</text>
-
-        <line x1="190" y1="45" x2="100" y2="70" stroke={color} strokeWidth="2" />
-        <line x1="210" y1="45" x2="300" y2="70" stroke="#cbd5e1" strokeWidth="2" strokeDasharray="3 3" />
-
-        <polygon points="100,90 85,60 115,60" fill="#ffffff" stroke={color} strokeWidth="2" />
-        <text x="100" y="78" textAnchor="middle" fontSize="9" fontWeight="800" fill={color}>MIN (7)</text>
-
-        <polygon points="300,90 285,60 315,60" fill="#f1f5f9" stroke="#cbd5e1" strokeWidth="2" />
-        <text x="300" y="78" textAnchor="middle" fontSize="9" fill="#94a3b8">PRUNED ✂️</text>
-
-        <circle cx="70" cy="110" r="8" fill="#e2e8f0" /><text x="70" y="113" textAnchor="middle" fontSize="8">7</text>
-        <circle cx="130" cy="110" r="8" fill="#e2e8f0" /><text x="130" y="113" textAnchor="middle" fontSize="8">9</text>
-      </svg>
-    );
-  }
-
-  if (type === 'logic') {
-    return (
-      <svg viewBox="0 0 400 120" style={{ width: '100%', height: '100px' }}>
-        <rect x="20" y="40" width="100" height="40" rx="6" fill="#ffffff" stroke={color} strokeWidth="2" />
-        <text x="70" y="64" textAnchor="middle" fontSize="10" fontWeight="800" fill={color}>KB: (A ∨ B) ∧ ¬A</text>
-
-        <path d="M 120 60 L 170 60" stroke={color} strokeWidth="2" />
-        <polygon points="170,56 178,60 170,64" fill={color} />
-
-        <rect x="180" y="30" width="100" height="60" rx="8" fill={color} opacity="0.1" stroke={color} strokeWidth="2" />
-        <text x="230" y="55" textAnchor="middle" fontSize="11" fontWeight="800" fill={color}>Resolution Rule</text>
-        <text x="230" y="72" textAnchor="middle" fontSize="9" fill="#334155">Literal Cancelation</text>
-
-        <path d="M 280 60 L 330 60" stroke={color} strokeWidth="2" />
-        <polygon points="330,56 338,60 330,64" fill={color} />
-
-        <circle cx="360" cy="60" r="20" fill={color} />
-        <text x="360" y="64" textAnchor="middle" fontSize="11" fontWeight="800" fill="#ffffff">Derived: B</text>
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 400 120" style={{ width: '100%', height: '100px' }}>
-      <rect x="20" y="40" width="90" height="40" rx="6" fill="#ffffff" stroke={color} strokeWidth="2" />
-      <text x="65" y="64" textAnchor="middle" fontSize="10" fontWeight="800" fill={color}>State S0</text>
-
-      <path d="M 110 60 L 160 60" stroke={color} strokeWidth="2" />
-      <polygon points="160,56 168,60 160,64" fill={color} />
-
-      <rect x="170" y="30" width="110" height="60" rx="8" fill={color} opacity="0.1" stroke={color} strokeWidth="2" />
-      <text x="225" y="55" textAnchor="middle" fontSize="11" fontWeight="800" fill={color}>STRIPS Action</text>
-      <text x="225" y="72" textAnchor="middle" fontSize="9" fill="#334155">Precond ➔ Add/Del</text>
-
-      <path d="M 280 60 L 330 60" stroke={color} strokeWidth="2" />
-      <polygon points="330,56 338,60 330,64" fill={color} />
-
-      <rect x="340" y="40" width="50" height="40" rx="6" fill={color} />
-      <text x="365" y="64" textAnchor="middle" fontSize="10" fontWeight="800" fill="#ffffff">Goal G</text>
-    </svg>
-  );
-}
-
 export default function InteractivePosters() {
   const [selectedUnitIdx, setSelectedUnitIdx] = useState(0);
-  const [isFullscreenModalOpen, setIsFullscreenModalOpen] = useState(false);
+  const [modalPoster, setModalPoster] = useState(null);
+  const [viewMode, setViewMode] = useState('single'); // 'single' or 'grid'
 
-  const currentPoster = ANIMATED_POSTERS[selectedUnitIdx];
+  const currentPoster = UNIT_POSTERS[selectedUnitIdx];
 
   const handlePrint = () => {
     window.print();
   };
 
+  const handlePrev = () => {
+    setSelectedUnitIdx((prev) => (prev > 0 ? prev - 1 : UNIT_POSTERS.length - 1));
+  };
+
+  const handleNext = () => {
+    setSelectedUnitIdx((prev) => (prev < UNIT_POSTERS.length - 1 ? prev + 1 : 0));
+  };
+
   return (
-    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '24px', paddingBottom: 60 }}>
+    <div className="animate-fade-in" style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingBottom: 60 }}>
 
       {/* ── Top Header Bar ────────────────────────────────────────────── */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
         <div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 4 }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: 'var(--primary-teal-dark)', letterSpacing: '0.08em', background: 'var(--primary-teal-light)', padding: '3px 10px', borderRadius: 'var(--radius-full)' }}>
-              Interactive Visual Posters
+            <span style={{
+              fontSize: '0.75rem',
+              fontWeight: 800,
+              textTransform: 'uppercase',
+              color: 'var(--primary-teal-dark)',
+              letterSpacing: '0.08em',
+              background: 'var(--primary-teal-light)',
+              padding: '3px 10px',
+              borderRadius: 'var(--radius-full)'
+            }}>
+              Visual Concept Blueprint
             </span>
             <span style={{ fontSize: '0.75rem', color: 'var(--text-muted)', fontWeight: 600 }}>
-              Medium Horizontal Rectangle Layout (Units 1–5)
+              Units 1 to 5 Concept Architecture
             </span>
           </div>
-          <h1 style={{ fontSize: '1.8rem', fontWeight: 800, color: 'var(--text-dark)', margin: 0, letterSpacing: '-0.02em' }}>
-            Unit {currentPoster.unitNumber} Animated Concept Poster
+          <h1 style={{ fontSize: '1.6rem', fontWeight: 800, color: 'var(--text-dark)', margin: 0, letterSpacing: '-0.02em' }}>
+            AI Course Concept Posters
           </h1>
         </div>
 
         {/* Action Controls */}
         <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
           <button
-            onClick={() => setIsFullscreenModalOpen(true)}
-            className="btn-primary float-animated-badge"
-            style={{ fontSize: '0.82rem', padding: '8px 16px', background: currentPoster.gradient }}
+            onClick={() => setViewMode(viewMode === 'single' ? 'grid' : 'single')}
+            className="btn-secondary"
+            style={{ fontSize: '0.82rem', padding: '8px 14px', display: 'flex', alignItems: 'center', gap: 6 }}
           >
-            <Maximize2 size={15} /> Full Sized Poster View
+            {viewMode === 'single' ? <LayoutGrid size={15} /> : <BookOpen size={15} />}
+            {viewMode === 'single' ? 'View All 5 Posters' : 'Focus Single Unit'}
           </button>
-          <button onClick={handlePrint} className="btn-secondary" style={{ fontSize: '0.82rem', padding: '8px 16px' }}>
-            <Printer size={15} /> Print Poster
+
+          <button
+            onClick={() => setModalPoster(currentPoster)}
+            className="btn-primary"
+            style={{ fontSize: '0.82rem', padding: '8px 14px', background: currentPoster.gradient, display: 'flex', alignItems: 'center', gap: 6 }}
+          >
+            <Maximize2 size={15} /> Expand High-Res
+          </button>
+
+          <button onClick={handlePrint} className="btn-secondary" style={{ fontSize: '0.82rem', padding: '8px 14px' }}>
+            <Printer size={15} /> Print
           </button>
         </div>
       </div>
 
-      {/* ── 5 Unit Selector Tabs (Unit 1 | Unit 2 | Unit 3 | Unit 4 | Unit 5) ── */}
+      {/* ── 5 Unit Selector Tabs ───────────────────────────────────────── */}
       <div style={{
         display: 'flex',
         gap: '8px',
         overflowX: 'auto',
         backgroundColor: '#ffffff',
-        padding: '10px 14px',
+        padding: '8px 12px',
         borderRadius: 'var(--radius-lg)',
         border: '1px solid var(--border-color)',
         boxShadow: 'var(--shadow-sm)'
       }}>
-        {ANIMATED_POSTERS.map((p, idx) => {
-          const isSelected = selectedUnitIdx === idx;
+        {UNIT_POSTERS.map((p, idx) => {
+          const isSelected = selectedUnitIdx === idx && viewMode === 'single';
           return (
             <button
               key={p.id}
-              onClick={() => setSelectedUnitIdx(idx)}
+              onClick={() => {
+                setSelectedUnitIdx(idx);
+                setViewMode('single');
+              }}
               style={{
                 display: 'flex',
                 alignItems: 'center',
                 gap: 8,
-                padding: '8px 16px',
+                padding: '7px 14px',
                 borderRadius: 'var(--radius-md)',
-                border: isSelected ? '2px solid var(--primary-teal)' : '1px solid var(--border-color)',
-                backgroundColor: isSelected ? 'var(--primary-teal-light)' : '#ffffff',
-                color: isSelected ? 'var(--primary-teal-dark)' : 'var(--text-dark)',
-                fontWeight: isSelected ? 800 : 500,
-                fontSize: '0.85rem',
+                border: isSelected ? `2px solid ${p.color}` : '1px solid var(--border-color)',
+                backgroundColor: isSelected ? p.bgLight : '#ffffff',
+                color: isSelected ? p.color : 'var(--text-dark)',
+                fontWeight: isSelected ? 800 : 600,
+                fontSize: '0.82rem',
                 cursor: 'pointer',
                 whiteSpace: 'nowrap',
                 transition: 'all 0.2s ease'
               }}
             >
               <div style={{
-                width: 24, height: 24, borderRadius: '50%',
-                backgroundColor: isSelected ? 'var(--primary-teal)' : '#f1f5f9',
+                width: 22, height: 22, borderRadius: '50%',
+                backgroundColor: isSelected ? p.color : '#f1f5f9',
                 color: isSelected ? '#ffffff' : 'var(--text-dark)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
-                fontWeight: 800, fontSize: '0.75rem'
+                fontWeight: 800, fontSize: '0.72rem'
               }}>
                 {p.unitNumber}
               </div>
-              <span>Unit {p.unitNumber} Poster</span>
+              <span>Unit {p.unitNumber}</span>
             </button>
           );
         })}
       </div>
 
-      {/* ═══════════════════════════════════════════════════════════════════════ */}
-      {/* MEDIUM HORIZONTAL RECTANGLE ANIMATED POSTER CARD (MAX-WIDTH: 740PX)     */}
-      {/* ═══════════════════════════════════════════════════════════════════════ */}
-      <div
-        id="master-poster-canvas"
-        className="edtech-card hover-lift"
-        style={{
-          maxWidth: '740px',
-          margin: '0 auto',
-          width: '100%',
-          padding: 0,
-          borderRadius: 'var(--radius-xl)',
-          overflow: 'hidden',
-          border: '2px solid var(--border-strong)',
-          boxShadow: 'var(--shadow-lg)',
-          backgroundColor: '#ffffff'
-        }}
-      >
-        {/* ── Top Animated Gradient Header Banner (Rectangle Landscape) ─────── */}
-        <div
-          className="animated-poster-header"
-          style={{
-            position: 'relative',
-            height: '145px',
-            background: currentPoster.gradient,
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            padding: '0 28px'
-          }}
-        >
-          {/* Background Image Overlay */}
-          <img
-            src={currentPoster.heroImage}
-            alt={currentPoster.title}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── SINGLE POSTER VIEW: SMALL, NEAT, BLUEPRINT RECTANGLE CARD ───── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {viewMode === 'single' ? (
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16 }}>
+          
+          {/* Previous / Next Navigator Bar */}
+          <div style={{ display: 'flex', justifyContent: 'space-between', width: '100%', maxWidth: '700px', alignItems: 'center' }}>
+            <button
+              onClick={handlePrev}
+              className="btn-secondary"
+              style={{ padding: '6px 12px', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: 4 }}
+            >
+              <ArrowLeft size={14} /> Previous Unit
+            </button>
+            <span style={{ fontSize: '0.78rem', fontWeight: 700, color: 'var(--text-muted)' }}>
+              Unit {currentPoster.unitNumber} of 5
+            </span>
+            <button
+              onClick={handleNext}
+              className="btn-secondary"
+              style={{ padding: '6px 12px', fontSize: '0.78rem', display: 'flex', alignItems: 'center', gap: 4 }}
+            >
+              Next Unit <ArrowRight size={14} />
+            </button>
+          </div>
+
+          {/* Master Poster Card */}
+          <div
+            className="blueprint-card"
             style={{
-              position: 'absolute',
-              inset: 0,
+              maxWidth: '700px',
               width: '100%',
-              height: '100%',
-              objectFit: 'cover',
-              opacity: 0.22,
-              mixBlendMode: 'overlay'
+              overflow: 'hidden',
+              backgroundColor: '#ffffff'
             }}
-          />
-
-          {/* Glowing Animated Pulse Orbs */}
-          <div className="pulse-glow-orb" style={{
-            position: 'absolute', right: '-30px', top: '-30px',
-            width: '180px', height: '180px', borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(255,255,255,0.4) 0%, transparent 70%)',
-            filter: 'blur(25px)', pointerEvents: 'none'
-          }} />
-
-          {/* Banner Contents */}
-          <div style={{ position: 'relative', zIndex: 2, color: '#ffffff', width: '100%' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 4 }}>
-              <span className="float-animated-badge" style={{
-                backgroundColor: 'rgba(255,255,255,0.25)',
-                backdropFilter: 'blur(4px)',
-                color: '#ffffff',
-                fontSize: '0.72rem',
-                fontWeight: 800,
-                padding: '3px 12px',
-                borderRadius: 'var(--radius-full)',
-                letterSpacing: '0.04em',
-                border: '1px solid rgba(255,255,255,0.3)'
-              }}>
-                ✨ {currentPoster.unitRoman} • {currentPoster.badge}
-              </span>
-
-              <button
-                onClick={() => setIsFullscreenModalOpen(true)}
-                style={{
-                  background: 'rgba(255,255,255,0.25)',
-                  border: '1px solid rgba(255,255,255,0.4)',
-                  color: '#ffffff',
-                  borderRadius: 'var(--radius-full)',
-                  padding: '4px 10px',
-                  fontSize: '0.75rem',
-                  fontWeight: 700,
-                  cursor: 'pointer',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 4
-                }}
-              >
-                <Maximize2 size={13} /> Expand Full Poster
-              </button>
-            </div>
-
-            <h2 style={{ fontSize: '1.45rem', fontWeight: 800, color: '#ffffff', margin: 0, letterSpacing: '-0.02em', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
-              {currentPoster.title}
-            </h2>
-            <p style={{ fontSize: '0.82rem', color: '#e2e8f0', margin: '3px 0 0 0', opacity: 0.95 }}>
-              {currentPoster.subtitle}
-            </p>
-          </div>
-        </div>
-
-        {/* ── Animated Formula / Core Law Pill Bar ──────────────────────────── */}
-        <div style={{
-          backgroundColor: currentPoster.bgLight,
-          padding: '12px 24px',
-          borderBottom: '1px solid var(--border-color)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          gap: 12
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-            <Zap size={18} color={currentPoster.color} className="pulse-live-dot" style={{ flexShrink: 0 }} />
-            <span style={{ fontSize: '0.78rem', fontWeight: 800, textTransform: 'uppercase', color: currentPoster.color, letterSpacing: '0.04em' }}>
-              Unit Core Formula:
-            </span>
-          </div>
-
-          <code style={{
-            color: currentPoster.color,
-            fontWeight: 800,
-            fontSize: '0.88rem',
-            fontFamily: 'var(--font-mono)',
-            backgroundColor: '#ffffff',
-            padding: '3px 12px',
-            borderRadius: 'var(--radius-full)',
-            border: `1px solid ${currentPoster.color}40`,
-            boxShadow: 'var(--shadow-sm)'
-          }}>
-            {currentPoster.formula}
-          </code>
-        </div>
-
-        {/* ── Visual Animated Concept Flow Diagram Bar ─────────────────────── */}
-        <div style={{
-          padding: '12px 24px 0 24px',
-          backgroundColor: '#fafafa',
-          borderBottom: '1px solid var(--border-color)'
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyBetween: 'space-between', marginBottom: 4 }}>
-            <span style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
-              🔹 Live Concept Flow Blueprint Diagram:
-            </span>
-          </div>
-          <PosterAnimatedDiagram type={currentPoster.diagramType} color={currentPoster.color} />
-        </div>
-
-        {/* ── 2x2 Animated Concept Node Cards Grid ─────────────────────────── */}
-        <div style={{
-          padding: '24px',
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(290px, 1fr))',
-          gap: '16px',
-          backgroundColor: '#ffffff'
-        }}>
-          {currentPoster.nodes.map((node, nIdx) => (
+          >
+            {/* 1. Header Banner */}
             <div
-              key={nIdx}
-              className="edtech-card edtech-card-interactive hover-lift"
+              className="animated-poster-header"
               style={{
-                padding: '16px',
-                borderRadius: 'var(--radius-md)',
-                border: '1px solid var(--border-color)',
-                backgroundColor: '#f8fafc',
+                position: 'relative',
+                padding: '20px 24px',
+                background: currentPoster.gradient,
+                color: '#ffffff',
                 display: 'flex',
                 flexDirection: 'column',
-                gap: '8px'
+                gap: 6
               }}
             >
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <div style={{
-                  width: 24, height: 24, borderRadius: '50%',
-                  backgroundColor: currentPoster.bgLight,
-                  color: currentPoster.color,
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontWeight: 800, fontSize: '0.75rem', flexShrink: 0
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+                <span style={{
+                  backgroundColor: 'rgba(255,255,255,0.22)',
+                  backdropFilter: 'blur(4px)',
+                  color: '#ffffff',
+                  fontSize: '0.7rem',
+                  fontWeight: 800,
+                  padding: '3px 10px',
+                  borderRadius: 'var(--radius-full)',
+                  letterSpacing: '0.04em'
                 }}>
-                  {nIdx + 1}
-                </div>
-                <h3 style={{ fontSize: '0.92rem', fontWeight: 800, color: 'var(--text-dark)', margin: 0 }}>
-                  {node.title}
-                </h3>
+                  ✨ {currentPoster.unitRoman} • {currentPoster.badge}
+                </span>
+
+                <button
+                  onClick={() => setModalPoster(currentPoster)}
+                  style={{
+                    background: 'rgba(255,255,255,0.22)',
+                    border: '1px solid rgba(255,255,255,0.4)',
+                    color: '#ffffff',
+                    borderRadius: 'var(--radius-full)',
+                    padding: '3px 10px',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 4
+                  }}
+                >
+                  <Maximize2 size={12} /> High-Res
+                </button>
               </div>
 
-              <p style={{ fontSize: '0.8rem', color: 'var(--text-muted)', margin: 0, lineHeight: 1.45 }}>
-                {node.desc}
-              </p>
+              <div>
+                <h2 style={{ fontSize: '1.35rem', fontWeight: 800, color: '#ffffff', margin: 0, letterSpacing: '-0.02em' }}>
+                  {currentPoster.title}
+                </h2>
+                <p style={{ fontSize: '0.8rem', color: '#e2e8f0', margin: '2px 0 0 0', opacity: 0.95 }}>
+                  {currentPoster.subtitle}
+                </p>
+              </div>
+            </div>
 
-              {/* Chips row */}
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: 'auto', paddingTop: '4px' }}>
-                {node.chips.map((chip, cIdx) => (
-                  <span
-                    key={cIdx}
+            {/* 2. Core Formula / Principle Pill Bar */}
+            <div style={{
+              backgroundColor: currentPoster.bgLight,
+              padding: '10px 20px',
+              borderBottom: '1px solid var(--border-color)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 10,
+              flexWrap: 'wrap'
+            }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+                <Zap size={16} color={currentPoster.color} className="pulse-live-dot" />
+                <span style={{ fontSize: '0.75rem', fontWeight: 800, textTransform: 'uppercase', color: currentPoster.color }}>
+                  Core Formulation:
+                </span>
+              </div>
+              <code style={{
+                color: currentPoster.color,
+                fontWeight: 800,
+                fontSize: '0.82rem',
+                fontFamily: 'var(--font-mono)',
+                backgroundColor: '#ffffff',
+                padding: '2px 10px',
+                borderRadius: 'var(--radius-full)',
+                border: `1px solid ${currentPoster.accentBorder}`,
+                boxShadow: '0 1px 2px rgba(0,0,0,0.04)'
+              }}>
+                {currentPoster.formula}
+              </code>
+            </div>
+
+            {/* 3. MIDDLE SECTION: UNIT-SPECIFIC BLUEPRINT IMAGE */}
+            <div style={{
+              padding: '16px 20px',
+              backgroundColor: '#f8fafc',
+              borderBottom: '1px solid var(--border-color)'
+            }}>
+              <div
+                className="blueprint-img-frame"
+                onClick={() => setModalPoster(currentPoster)}
+                style={{
+                  cursor: 'pointer',
+                  height: '280px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+                title="Click to view full-resolution blueprint diagram"
+              >
+                <img
+                  src={currentPoster.image}
+                  alt={currentPoster.title}
+                />
+                
+                {/* Floating Click to Zoom Badge */}
+                <div style={{
+                  position: 'absolute',
+                  bottom: 10,
+                  right: 10,
+                  background: 'rgba(15, 23, 42, 0.75)',
+                  backdropFilter: 'blur(4px)',
+                  color: '#ffffff',
+                  fontSize: '0.7rem',
+                  fontWeight: 700,
+                  padding: '3px 8px',
+                  borderRadius: 'var(--radius-full)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 4,
+                  pointerEvents: 'none'
+                }}>
+                  <Eye size={12} /> Click to Zoom
+                </div>
+              </div>
+
+              {/* Technical Caption */}
+              <div style={{
+                textAlign: 'center',
+                marginTop: 8,
+                fontSize: '0.76rem',
+                fontWeight: 600,
+                color: 'var(--text-muted)',
+                letterSpacing: '0.01em'
+              }}>
+                {currentPoster.imageCaption}
+              </div>
+            </div>
+
+            {/* 4. BOTTOM SECTION: BLUEPRINT CONCEPT PILLARS (NOT WALL OF ANSWERS) */}
+            <div style={{ padding: '16px 20px', backgroundColor: '#ffffff' }}>
+              <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: 10,
+                marginBottom: 14
+              }}>
+                {currentPoster.pillars.map((pillar, pIdx) => (
+                  <div
+                    key={pIdx}
                     style={{
-                      fontSize: '0.72rem',
-                      fontWeight: 600,
-                      backgroundColor: '#ffffff',
-                      color: currentPoster.color,
-                      border: `1px solid ${currentPoster.color}30`,
-                      padding: '2px 8px',
-                      borderRadius: 'var(--radius-sm)'
+                      display: 'flex',
+                      alignItems: 'flex-start',
+                      gap: 10,
+                      padding: '8px 12px',
+                      borderRadius: 'var(--radius-md)',
+                      backgroundColor: '#f8fafc',
+                      border: '1px solid var(--border-color)'
                     }}
                   >
-                    🔹 {chip}
-                  </span>
+                    <div style={{
+                      marginTop: 2,
+                      width: 22,
+                      height: 22,
+                      borderRadius: '6px',
+                      backgroundColor: currentPoster.bgLight,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexShrink: 0
+                    }}>
+                      {pillar.icon}
+                    </div>
+                    <div>
+                      <div style={{ fontSize: '0.75rem', fontWeight: 800, color: 'var(--text-dark)' }}>
+                        {pillar.label}
+                      </div>
+                      <div style={{ fontSize: '0.74rem', color: 'var(--text-muted)', marginTop: 1, lineHeight: 1.3 }}>
+                        {pillar.value}
+                      </div>
+                    </div>
+                  </div>
                 ))}
+              </div>
+
+              {/* 5. Golden Takeaway Pill */}
+              <div style={{
+                padding: '10px 14px',
+                borderRadius: 'var(--radius-md)',
+                backgroundColor: currentPoster.bgLight,
+                border: `1.5px dashed ${currentPoster.accentBorder}`,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10
+              }}>
+                <Sparkles size={16} color={currentPoster.color} style={{ flexShrink: 0 }} />
+                <span style={{ fontSize: '0.76rem', color: 'var(--text-dark)', fontWeight: 600, lineHeight: 1.35 }}>
+                  {currentPoster.takeaway}
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      ) : (
+        /* ═══════════════════════════════════════════════════════════════════ */
+        /* ── GRID VIEW: ALL 5 UNIT POSTERS AT A GLANCE ───────────────────── */
+        /* ═══════════════════════════════════════════════════════════════════ */
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 20
+        }}>
+          {UNIT_POSTERS.map((p, idx) => (
+            <div
+              key={p.id}
+              className="blueprint-card hover-lift"
+              style={{ overflow: 'hidden', display: 'flex', flexDirection: 'column' }}
+            >
+              {/* Header */}
+              <div style={{
+                padding: '14px 18px',
+                background: p.gradient,
+                color: '#ffffff',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center'
+              }}>
+                <div>
+                  <span style={{ fontSize: '0.68rem', fontWeight: 800, textTransform: 'uppercase', opacity: 0.9 }}>
+                    {p.unitRoman}
+                  </span>
+                  <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: '2px 0 0 0', color: '#ffffff' }}>
+                    {p.title}
+                  </h3>
+                </div>
+                <button
+                  onClick={() => {
+                    setSelectedUnitIdx(idx);
+                    setViewMode('single');
+                  }}
+                  style={{
+                    background: 'rgba(255,255,255,0.25)',
+                    border: 'none',
+                    color: '#ffffff',
+                    padding: '4px 10px',
+                    borderRadius: 'var(--radius-full)',
+                    fontSize: '0.72rem',
+                    fontWeight: 700,
+                    cursor: 'pointer'
+                  }}
+                >
+                  Focus
+                </button>
+              </div>
+
+              {/* Image in Middle */}
+              <div
+                className="blueprint-img-frame"
+                onClick={() => setModalPoster(p)}
+                style={{ height: '180px', cursor: 'pointer', margin: '12px' }}
+              >
+                <img src={p.image} alt={p.title} />
+              </div>
+
+              {/* Formula & Pillars */}
+              <div style={{ padding: '0 14px 14px 14px', display: 'flex', flexDirection: 'column', gap: 8, flex: 1 }}>
+                <code style={{
+                  color: p.color,
+                  fontWeight: 700,
+                  fontSize: '0.74rem',
+                  fontFamily: 'var(--font-mono)',
+                  backgroundColor: p.bgLight,
+                  padding: '4px 8px',
+                  borderRadius: 'var(--radius-sm)',
+                  textAlign: 'center'
+                }}>
+                  {p.formula}
+                </code>
+
+                <div style={{ fontSize: '0.73rem', color: 'var(--text-muted)', lineHeight: 1.35, marginTop: 4 }}>
+                  {p.takeaway}
+                </div>
+
+                <div style={{ marginTop: 'auto', paddingTop: 8, display: 'flex', gap: 6 }}>
+                  <button
+                    onClick={() => {
+                      setSelectedUnitIdx(idx);
+                      setViewMode('single');
+                    }}
+                    className="btn-primary"
+                    style={{ flex: 1, padding: '6px', fontSize: '0.75rem', background: p.gradient }}
+                  >
+                    View Poster
+                  </button>
+                  <button
+                    onClick={() => setModalPoster(p)}
+                    className="btn-secondary"
+                    style={{ padding: '6px 10px', fontSize: '0.75rem' }}
+                  >
+                    <Maximize2 size={13} />
+                  </button>
+                </div>
               </div>
             </div>
           ))}
         </div>
+      )}
 
-        {/* ── Animated High-Yield Exam Tip Footer ──────────────────────────── */}
-        <div style={{
-          backgroundColor: '#fffbeb',
-          borderTop: '1px solid #fde68a',
-          padding: '14px 24px',
-          fontSize: '0.8rem',
-          color: '#92400e',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 10
-        }}>
-          <Lightbulb size={18} color="#d97706" style={{ flexShrink: 0 }} />
-          <div style={{ lineHeight: 1.4 }}>
-            <strong>High-Yield Exam Strategy:</strong> {currentPoster.examTip}
-          </div>
-        </div>
-      </div>
-
-      {/* ═══════════════════════════════════════════════════════════════════════ */}
-      {/* FULL-SIZED OVERLAY MODAL FOR FULL SCREEN POSTER VIEW                    */}
-      {/* ═══════════════════════════════════════════════════════════════════════ */}
-      {isFullscreenModalOpen && (
-        <div style={{
-          position: 'fixed',
-          inset: 0,
-          zIndex: 99999,
-          backgroundColor: 'rgba(15, 23, 42, 0.75)',
-          backdropFilter: 'blur(8px)',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          padding: '20px'
-        }}>
-          <div className="animate-fade-in" style={{
-            width: '100%',
-            maxWidth: '1000px',
-            maxHeight: '92vh',
-            backgroundColor: '#ffffff',
-            borderRadius: 'var(--radius-xl)',
-            overflow: 'hidden',
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {/* ── HIGH RESOLUTION MODAL OVERLAY ───────────────────────────────── */}
+      {/* ═══════════════════════════════════════════════════════════════════ */}
+      {modalPoster && (
+        <div
+          style={{
+            position: 'fixed',
+            inset: 0,
+            backgroundColor: 'rgba(15, 23, 42, 0.85)',
+            backdropFilter: 'blur(8px)',
+            zIndex: 9999,
             display: 'flex',
-            flexDirection: 'column',
-            boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.4)',
-            border: '2px solid var(--border-strong)'
-          }}>
-            {/* Modal Header Bar */}
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '24px'
+          }}
+          onClick={() => setModalPoster(null)}
+        >
+          <div
+            style={{
+              maxWidth: '900px',
+              width: '100%',
+              maxHeight: '90vh',
+              overflowY: 'auto',
+              backgroundColor: '#ffffff',
+              borderRadius: 'var(--radius-xl)',
+              boxShadow: '0 25px 50px -12px rgba(0,0,0,0.5)',
+              overflow: 'hidden'
+            }}
+            onClick={(e) => e.stopPropagation()}
+          >
+            {/* Modal Header */}
             <div style={{
+              padding: '16px 24px',
+              background: modalPoster.gradient,
+              color: '#ffffff',
               display: 'flex',
-              justify: 'space-between',
-              alignItems: 'center',
-              padding: '14px 24px',
-              backgroundColor: '#f8fafc',
-              borderBottom: '1px solid var(--border-color)'
+              justifyContent: 'space-between',
+              alignItems: 'center'
             }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                <span style={{ fontSize: '0.8rem', fontWeight: 800, padding: '3px 10px', borderRadius: 'var(--radius-full)', backgroundColor: currentPoster.bgLight, color: currentPoster.color }}>
-                  {currentPoster.unitRoman}
+              <div>
+                <span style={{ fontSize: '0.72rem', fontWeight: 800, textTransform: 'uppercase' }}>
+                  {modalPoster.unitRoman} Blueprint Poster
                 </span>
-                <h3 style={{ fontSize: '1.1rem', fontWeight: 800, margin: 0, color: 'var(--text-dark)' }}>
-                  Full Sized Animated Concept Poster - Unit {currentPoster.unitNumber}
-                </h3>
+                <h2 style={{ fontSize: '1.25rem', fontWeight: 800, margin: '2px 0 0 0', color: '#ffffff' }}>
+                  {modalPoster.title}
+                </h2>
               </div>
+              <button
+                onClick={() => setModalPoster(null)}
+                style={{
+                  background: 'rgba(255,255,255,0.2)',
+                  border: 'none',
+                  color: '#ffffff',
+                  width: 32,
+                  height: 32,
+                  borderRadius: '50%',
+                  cursor: 'pointer',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                <X size={18} />
+              </button>
+            </div>
 
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+            {/* High-res Image Display */}
+            <div style={{ padding: '20px', backgroundColor: '#0b1120', textAlign: 'center' }}>
+              <img
+                src={modalPoster.image}
+                alt={modalPoster.title}
+                style={{
+                  maxWidth: '100%',
+                  maxHeight: '65vh',
+                  objectFit: 'contain',
+                  borderRadius: 'var(--radius-md)'
+                }}
+              />
+            </div>
+
+            {/* Modal Footer with details */}
+            <div style={{ padding: '16px 24px', backgroundColor: '#ffffff', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: 12 }}>
+              <div>
+                <div style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-dark)' }}>
+                  {modalPoster.imageCaption}
+                </div>
+                <div style={{ fontSize: '0.76rem', color: 'var(--text-muted)', marginTop: 2 }}>
+                  {modalPoster.formula}
+                </div>
+              </div>
+              <div style={{ display: 'flex', gap: 8 }}>
                 <button onClick={handlePrint} className="btn-secondary" style={{ fontSize: '0.8rem', padding: '6px 14px' }}>
                   <Printer size={14} /> Print
                 </button>
-                <button
-                  onClick={() => setIsFullscreenModalOpen(false)}
-                  style={{
-                    background: '#f1f5f9', border: 'none', borderRadius: '50%',
-                    width: 34, height: 34, display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'pointer', color: 'var(--text-dark)'
-                  }}
-                >
-                  <X size={18} />
+                <button onClick={() => setModalPoster(null)} className="btn-primary" style={{ fontSize: '0.8rem', padding: '6px 16px', background: modalPoster.gradient }}>
+                  Done
                 </button>
-              </div>
-            </div>
-
-            {/* Modal Scrollable Canvas Body */}
-            <div style={{ overflowY: 'auto', padding: '24px', flex: 1, backgroundColor: '#f1f5f9' }}>
-              <div style={{
-                maxWidth: '860px',
-                margin: '0 auto',
-                backgroundColor: '#ffffff',
-                borderRadius: 'var(--radius-xl)',
-                border: '2px solid var(--border-strong)',
-                boxShadow: 'var(--shadow-lg)',
-                overflow: 'hidden'
-              }}>
-                {/* Poster Animated Header */}
-                <div
-                  className="animated-poster-header"
-                  style={{
-                    position: 'relative',
-                    padding: '36px 32px',
-                    background: currentPoster.gradient,
-                    color: '#ffffff'
-                  }}
-                >
-                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
-                    <span style={{
-                      backgroundColor: 'rgba(255,255,255,0.25)',
-                      padding: '4px 14px',
-                      borderRadius: 'var(--radius-full)',
-                      fontWeight: 800,
-                      fontSize: '0.8rem',
-                      letterSpacing: '0.05em'
-                    }}>
-                      ✨ FULL SIZED ANIMATED BLUEPRINT
-                    </span>
-                    <Sparkles size={24} color="#ffffff" />
-                  </div>
-                  <h1 style={{ fontSize: '2rem', fontWeight: 800, margin: '8px 0 4px 0', textShadow: '0 2px 4px rgba(0,0,0,0.3)' }}>
-                    {currentPoster.title}
-                  </h1>
-                  <p style={{ fontSize: '0.95rem', opacity: 0.95, margin: 0 }}>
-                    {currentPoster.subtitle}
-                  </p>
-                </div>
-
-                {/* Formula Bar */}
-                <div style={{
-                  backgroundColor: currentPoster.bgLight,
-                  padding: '16px 32px',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  borderBottom: '1px solid var(--border-color)'
-                }}>
-                  <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                    <Zap size={20} color={currentPoster.color} className="pulse-live-dot" />
-                    <span style={{ fontWeight: 800, color: currentPoster.color, fontSize: '0.9rem' }}>
-                      KEY EXAM FORMULA & LAW:
-                    </span>
-                  </div>
-                  <code style={{
-                    color: currentPoster.color,
-                    fontWeight: 800,
-                    fontSize: '1rem',
-                    fontFamily: 'var(--font-mono)',
-                    backgroundColor: '#ffffff',
-                    padding: '4px 16px',
-                    borderRadius: 'var(--radius-full)',
-                    border: `1px solid ${currentPoster.color}40`
-                  }}>
-                    {currentPoster.formula}
-                  </code>
-                </div>
-
-                {/* Concept Diagram */}
-                <div style={{ padding: '20px 32px', backgroundColor: '#ffffff', borderBottom: '1px solid var(--border-color)' }}>
-                  <PosterAnimatedDiagram type={currentPoster.diagramType} color={currentPoster.color} />
-                </div>
-
-                {/* Nodes Grid */}
-                <div style={{
-                  padding: '32px',
-                  display: 'grid',
-                  gridTemplateColumns: 'repeat(2, 1fr)',
-                  gap: '20px',
-                  backgroundColor: '#ffffff'
-                }}>
-                  {currentPoster.nodes.map((node, idx) => (
-                    <div key={idx} style={{
-                      padding: '20px',
-                      borderRadius: 'var(--radius-lg)',
-                      backgroundColor: '#f8fafc',
-                      border: '1px solid var(--border-color)',
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: 10
-                    }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-                        <div style={{
-                          width: 28, height: 28, borderRadius: '50%',
-                          backgroundColor: currentPoster.bgLight, color: currentPoster.color,
-                          display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800
-                        }}>
-                          {idx + 1}
-                        </div>
-                        <h3 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0, color: 'var(--text-dark)' }}>
-                          {node.title}
-                        </h3>
-                      </div>
-                      <p style={{ fontSize: '0.88rem', color: 'var(--text-muted)', margin: 0, lineHeight: 1.5 }}>
-                        {node.desc}
-                      </p>
-                      <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 'auto' }}>
-                        {node.chips.map((c, ci) => (
-                          <span key={ci} style={{
-                            fontSize: '0.75rem', fontWeight: 600, backgroundColor: '#ffffff',
-                            color: currentPoster.color, border: `1px solid ${currentPoster.color}30`,
-                            padding: '3px 10px', borderRadius: 'var(--radius-sm)'
-                          }}>
-                            🔹 {c}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Exam Tip Footer */}
-                <div style={{
-                  backgroundColor: '#fffbeb',
-                  borderTop: '1px solid #fde68a',
-                  padding: '18px 32px',
-                  color: '#92400e',
-                  fontSize: '0.9rem',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: 12
-                }}>
-                  <Lightbulb size={22} color="#d97706" />
-                  <div>
-                    <strong>High-Yield Exam Strategy:</strong> {currentPoster.examTip}
-                  </div>
-                </div>
               </div>
             </div>
           </div>
