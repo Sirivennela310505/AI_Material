@@ -20,7 +20,8 @@ import {
   ArrowRight,
   Sparkles,
   ExternalLink,
-  X
+  X,
+  FileText
 } from 'lucide-react';
 
 // ══════════════════════════════════════════════════════════════════════════════

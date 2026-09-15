@@ -15,9 +15,7 @@ export default function TopNav({ onSearchCommand, backendStatus }) {
 
   return (
     <header style={{
-      backgroundColor: 'rgba(15,23,41,0.95)',
-      backdropFilter: 'blur(12px)',
-      WebkitBackdropFilter: 'blur(12px)',
+      backgroundColor: '#ffffff',
       borderBottom: '1px solid var(--border-color)',
       padding: '12px 28px',
       position: 'sticky',
@@ -27,18 +25,18 @@ export default function TopNav({ onSearchCommand, backendStatus }) {
       alignItems: 'center',
       justifyContent: 'space-between',
       gap: '20px',
-      boxShadow: '0 2px 12px rgba(0,0,0,0.4)'
+      boxShadow: 'var(--shadow-sm)'
     }}>
       {/* Search / AI Command Bar */}
       <form onSubmit={handleSubmit} style={{ flex: 1, maxWidth: '620px', position: 'relative' }}>
         <div style={{
           display: 'flex', alignItems: 'center',
-          backgroundColor: focused ? 'var(--bg-card)' : 'var(--bg-card-subtle)',
+          backgroundColor: focused ? '#ffffff' : 'var(--bg-card-subtle)',
           border: `1px solid ${focused ? 'var(--primary-teal)' : 'var(--border-color)'}`,
           borderRadius: 'var(--radius-md)',
           padding: '4px 4px 4px 14px',
           transition: 'all 0.2s ease',
-          boxShadow: focused ? '0 0 0 3px rgba(20,184,166,0.12)' : 'none'
+          boxShadow: focused ? '0 0 0 3px rgba(13,148,136,0.12)' : 'none'
         }}>
           <Sparkles size={16} color="var(--primary-teal)" style={{ marginRight: '10px', flexShrink: 0 }} />
           <input
@@ -84,9 +82,9 @@ export default function TopNav({ onSearchCommand, backendStatus }) {
         <div style={{
           display: 'flex', alignItems: 'center', gap: '7px',
           backgroundColor: 'var(--primary-teal-light)',
-          border: '1px solid rgba(20,184,166,0.25)',
+          border: '1px solid rgba(13,148,136,0.25)',
           padding: '6px 14px', borderRadius: 'var(--radius-full)',
-          fontSize: '0.75rem', fontWeight: 600, color: 'var(--primary-teal)'
+          fontSize: '0.75rem', fontWeight: 700, color: 'var(--primary-teal-dark)'
         }}>
           <Cpu size={13} />
           <span>Engine: <strong>{backendStatus?.hasApiKey ? 'Gemini Active' : 'AI Core'}</strong></span>
@@ -99,14 +97,15 @@ export default function TopNav({ onSearchCommand, backendStatus }) {
         }}>
           <div style={{
             width: '34px', height: '34px', borderRadius: '50%',
-            background: 'linear-gradient(135deg, var(--primary-teal) 0%, var(--primary-indigo) 100%)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center'
+            background: 'linear-gradient(135deg, #0d9488 0%, #2563eb 100%)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            color: 'white', fontWeight: 700, fontSize: '0.85rem'
           }}>
-            <User size={16} color="#fff" />
+            <User size={18} />
           </div>
-          <div>
-            <div style={{ fontSize: '0.82rem', fontWeight: 700, lineHeight: 1.2, color: 'var(--text-dark)' }}>IT Student</div>
-            <div style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>AI Learner</div>
+          <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <span style={{ fontSize: '0.8rem', fontWeight: 700, color: 'var(--text-dark)' }}>Student User</span>
+            <span style={{ fontSize: '0.68rem', color: 'var(--text-muted)' }}>AI &amp; Applications</span>
           </div>
         </div>
       </div>

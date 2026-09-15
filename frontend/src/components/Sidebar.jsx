@@ -12,8 +12,7 @@ import {
   BarChart3,
   RotateCcw,
   Sparkles,
-  GraduationCap,
-  ChevronRight
+  GraduationCap
 } from 'lucide-react';
 
 const NAV_GROUPS = [
@@ -51,7 +50,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
     <aside style={{
       width: '260px',
       backgroundColor: 'var(--bg-sidebar)',
-      color: 'var(--text-white)',
+      color: 'var(--text-dark)',
       display: 'flex',
       flexDirection: 'column',
       minHeight: '100vh',
@@ -72,14 +71,14 @@ export default function Sidebar({ activeTab, setActiveTab }) {
       }}>
         <div style={{
           width: '40px', height: '40px', borderRadius: '12px',
-          background: 'linear-gradient(135deg, #14b8a6 0%, #0d9488 100%)',
+          background: 'linear-gradient(135deg, #0d9488 0%, #0f766e 100%)',
           display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 4px 14px rgba(20,184,166,0.4)'
+          boxShadow: '0 4px 14px rgba(13,148,136,0.3)'
         }}>
           <Sparkles size={20} color="#fff" />
         </div>
         <div>
-          <h1 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0, color: '#fff', letterSpacing: '-0.01em' }}>
+          <h1 style={{ fontSize: '1.05rem', fontWeight: 800, margin: 0, color: 'var(--text-dark)', letterSpacing: '-0.01em' }}>
             EduAgent<span style={{ color: 'var(--primary-teal)' }}> AI</span>
           </h1>
           <p style={{ fontSize: '0.68rem', color: 'var(--text-muted)', margin: 0 }}>
@@ -99,7 +98,7 @@ export default function Sidebar({ activeTab, setActiveTab }) {
             }}>
               {group.label}
             </div>
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '3px' }}>
               {group.items.map(item => {
                 const Icon = item.icon;
                 const isActive = activeTab === item.id;
@@ -114,39 +113,39 @@ export default function Sidebar({ activeTab, setActiveTab }) {
                       borderRadius: 'var(--radius-md)',
                       border: 'none',
                       background: isActive
-                        ? 'linear-gradient(135deg, rgba(20,184,166,0.2) 0%, rgba(20,184,166,0.08) 100%)'
+                        ? 'var(--primary-teal-light)'
                         : 'transparent',
-                      color: isActive ? 'var(--primary-teal)' : 'var(--text-muted)',
+                      color: isActive ? 'var(--primary-teal-dark)' : 'var(--text-dark)',
                       fontWeight: isActive ? 700 : 500,
                       fontSize: '0.855rem',
                       cursor: 'pointer',
                       textAlign: 'left',
                       transition: 'all 0.18s ease',
-                      borderLeft: isActive ? '2px solid var(--primary-teal)' : '2px solid transparent'
+                      borderLeft: isActive ? '3px solid var(--primary-teal)' : '3px solid transparent'
                     }}
                     onMouseEnter={e => {
                       if (!isActive) {
-                        e.currentTarget.style.background = 'rgba(255,255,255,0.04)';
-                        e.currentTarget.style.color = 'var(--text-light)';
+                        e.currentTarget.style.background = 'var(--bg-card-subtle)';
+                        e.currentTarget.style.color = 'var(--primary-teal)';
                       }
                     }}
                     onMouseLeave={e => {
                       if (!isActive) {
                         e.currentTarget.style.background = 'transparent';
-                        e.currentTarget.style.color = 'var(--text-muted)';
+                        e.currentTarget.style.color = 'var(--text-dark)';
                       }
                     }}
                   >
                     <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                      <Icon size={16} color={isActive ? 'var(--primary-teal)' : 'currentColor'} />
+                      <Icon size={16} color={isActive ? 'var(--primary-teal-dark)' : 'currentColor'} />
                       <span>{item.label}</span>
                     </div>
                     {item.badge && (
                       <span style={{
                         fontSize: '0.6rem', fontWeight: 700,
                         padding: '2px 7px', borderRadius: 'var(--radius-full)',
-                        background: isActive ? 'var(--primary-teal-light)' : 'rgba(255,255,255,0.07)',
-                        color: isActive ? 'var(--primary-teal)' : 'var(--text-muted)',
+                        background: isActive ? '#ffffff' : 'var(--bg-card-subtle)',
+                        color: isActive ? 'var(--primary-teal-dark)' : 'var(--text-muted)',
                         whiteSpace: 'nowrap'
                       }}>
                         {item.badge}
@@ -164,11 +163,11 @@ export default function Sidebar({ activeTab, setActiveTab }) {
       <div style={{
         marginTop: '16px', padding: '12px 14px',
         borderRadius: 'var(--radius-md)',
-        background: 'rgba(20,184,166,0.06)',
-        border: '1px solid rgba(20,184,166,0.15)',
-        fontSize: '0.72rem', color: 'var(--text-muted)'
+        background: 'var(--primary-teal-light)',
+        border: '1px solid rgba(13,148,136,0.2)',
+        fontSize: '0.72rem', color: 'var(--primary-teal-dark)'
       }}>
-        <strong style={{ color: 'var(--text-light)', display: 'block', marginBottom: '2px' }}>
+        <strong style={{ color: 'var(--primary-teal-dark)', display: 'block', marginBottom: '2px' }}>
           Course: AI &amp; Applications
         </strong>
         MRU-AI Techspark 2026
