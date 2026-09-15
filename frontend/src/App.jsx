@@ -104,6 +104,7 @@ export default function App() {
               syllabus={syllabus}
               onSelectConcept={handleSelectConcept}
               selectedUnitId={selectedUnitId}
+              onNavigate={(tab) => setActiveTab(tab)}
             />
           )}
 
