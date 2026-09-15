@@ -1091,22 +1091,22 @@ ${currentPoster.cheatSheet.points.map(p => `✓ ${p}`).join('\n')}
         id="master-poster-canvas"
         className="edtech-card"
         style={{
-          maxWidth: 1080,
+          maxWidth: 720,
           margin: '0 auto',
           width: '100%',
           padding: 0,
           overflow: 'hidden',
           border: '2px solid var(--border-strong)',
-          boxShadow: 'var(--shadow-lg)',
+          boxShadow: 'var(--shadow-md)',
           backgroundColor: '#ffffff'
         }}
       >
         {/* ── Medium Poster Hero Banner ───────────────────────────────────────── */}
-        <div style={{ position: 'relative', minHeight: 150, maxHeight: 180, overflow: 'hidden' }}>
+        <div style={{ position: 'relative', minHeight: 110, maxHeight: 130, overflow: 'hidden' }}>
           <img
             src={currentPoster.heroImage}
             alt={currentPoster.heroAlt}
-            style={{ width: '100%', height: '100%', minHeight: 150, maxHeight: 180, objectFit: 'cover' }}
+            style={{ width: '100%', height: '100%', minHeight: 110, maxHeight: 130, objectFit: 'cover' }}
           />
           {/* Rich aesthetic gradient overlay */}
           <div style={{
@@ -1221,12 +1221,12 @@ ${currentPoster.cheatSheet.points.map(p => `✓ ${p}`).join('\n')}
           </div>
         </div>
 
-        {/* ── Poster Body: Medium Balanced 2-Column Grid (Not overly big) ──── */}
+        {/* ── Poster Body: Medium Balanced Grid (Compact & Readable) ──── */}
         <div style={{
-          padding: '20px',
+          padding: '16px',
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(460px, 1fr))',
-          gap: 16,
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))',
+          gap: 14,
           backgroundColor: '#f8fafc'
         }}>
           {currentPoster.sections.map((sec, idx) => (
